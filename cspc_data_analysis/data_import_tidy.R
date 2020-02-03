@@ -1,9 +1,10 @@
 # load libraries
-library(tidyverse)
 library(here)
 library(readxl)
 library(tibble)
+library(tidyverse)
 library(data.table)
+library(skimr)
 
 # import data (sheet 7)
 cspc_raw_7 <- read_excel(here("raw_data", "cspc_raw_2019.xlsx"), 
@@ -17,9 +18,10 @@ newcols_7 <- c("ID", "attendance", "career_stage",
              "engagement", "welcomed", "edi", "diversity") 
   
 # assemble new table
-names(cspc_raw_7)<-paste(newcols_7)
-sheet_7 <- cspc_raw_7[-c(1,2),] %>%
-  mutate(ID = 1:colnames(sheet_7))
+names(cspc_raw_7) <- paste(newcols_7)
+
+sheet_7 <- cspc_raw_7[-c(1,2),] %>% # run in two steps
+  mutate(ID = 1:nrow(sheet_7))
 
 #------------------------------------------------------------
 
@@ -36,7 +38,9 @@ newcols_8 <- c("ID", "career_1", "career_2", "career_3", "career_stage",
 
 # assemble new table
 names(cspc_raw_8)<-paste(newcols_8)
-sheet_8 <- cspc_raw_8[-c(1,2),]
+
+sheet_8 <- cspc_raw_8[-c(1,2),] %>% # run in two steps
+  mutate(ID = 1:nrow(sheet_8))
 
 # source script
 .setup_sourced <- TRUE
