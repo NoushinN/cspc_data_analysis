@@ -7,10 +7,12 @@ sheet_7 %>%
   filter(! career_stage == "0.0") %>%
   group_by(attendance, career_stage) %>%
   summarise(count = n()) %>%
-  ggplot(aes(x = career_stage, y = count, fill = attendance)) +
+  ungroup() %>%
+  mutate(freq = count / sum(count) * 100) %>%
+  ggplot(aes(x = career_stage, y = freq, fill = attendance)) +
   geom_bar(stat = "identity") + 
   coord_flip() +
-  theme_bw() + labs(x = "Career stage", title = "Career Stage/attendance type of Participants",
+  theme_bw() + labs(x = "Career stage", y = "percentage", title = "Career Stage/attendance type of Participants",
                     subtitle = "1.0 = student/trainee; 2.0 = early career < 5; 3.0 = mid career 5+") +
   scale_fill_manual(values=c("seagreen4", "blue4", "orange"))
   
@@ -20,10 +22,12 @@ sheet_7 %>%
   filter(! career_stage == "0.0") %>%
   group_by(attendance, career_stage) %>%
   summarise(count = n()) %>%
-  ggplot(aes(x = attendance, y = count, fill = attendance)) +
+  ungroup() %>%
+  mutate(freq = count / sum(count) * 100) %>%
+  ggplot(aes(x = career_stage, y = freq, fill = attendance)) +
   geom_bar(stat = "identity") + 
   coord_flip() +
-  theme_bw() + labs(x = "Attendance", title = "Attendance types",
+  theme_bw() + labs(x = "Attendance", y = "percentage", title = "Attendance types",
                     subtitle = "") +
   scale_fill_manual(values=c("seagreen4", "blue4", "orange")) 
 
@@ -33,10 +37,11 @@ sheet_7 %>%
   filter(! attendance == "NA") %>%
   group_by(attendance, overall) %>%
   summarise(count = n()) %>%
+  mutate(freq = count / sum(count) * 100) %>%
   ggplot(aes(x = overall, y = count, fill = attendance)) +
   geom_bar(stat = "identity") + 
   coord_flip() +
-  theme_bw() + labs(x = "Overall ratings", title = "Overall experience  by attendance at CSPC",
+  theme_bw() + labs(x = "Overall ratings", y = "percentage", title = "Overall experience  by attendance at CSPC",
                     subtitle = "") +
   scale_fill_manual(values=c("seagreen4", "blue4", "darkorange3", "cyan4", "gold1")) 
   
@@ -46,10 +51,11 @@ sheet_7 %>%
   filter(! attendance == "NA") %>%
   group_by(attendance, forum) %>%
   summarise(count = n()) %>%
-  ggplot(aes(x = forum, y = count, fill = attendance)) +
+  mutate(freq = count / sum(count) * 100) %>%
+  ggplot(aes(x = forum, y = freq, fill = attendance)) +
   geom_bar(stat = "identity") + 
   coord_flip() +
-  theme_bw() + labs(x = "Forum ratings", title = "Did CSPC act as a forum",
+  theme_bw() + labs(x = "Forum ratings", y = "percentage", title = "Did CSPC act as a forum",
                     subtitle = "for the exploration of issues in science, technology, and innovation policy") +
   scale_fill_manual(values=c("seagreen4", "blue4", "darkorange3", "cyan4", "gold1")) 
 
@@ -59,10 +65,11 @@ sheet_7 %>%
   filter(! connections == "NA") %>%
   group_by(attendance, connections) %>%
   summarise(count = n()) %>%
-  ggplot(aes(x = connections, y = count, fill = attendance)) +
+  mutate(freq = count / sum(count) * 100) %>%
+  ggplot(aes(x = connections, y = freq, fill = attendance)) +
   geom_bar(stat = "identity") + 
   coord_flip() +
-  theme_bw() + labs(x = "Connections ratings", title = "Did CSPC strengthen connections ",
+  theme_bw() + labs(x = "Connections ratings", y = "percentage", title = "Did CSPC strengthen connections ",
                     subtitle = "between science stakeholders and sectors of society") +
   scale_fill_manual(values=c("seagreen4", "blue4", "darkorange3", "cyan4", "gold1")) 
 
@@ -72,10 +79,11 @@ sheet_7 %>%
   filter(! connections == "NA") %>%
   group_by(attendance, capacity) %>%
   summarise(count = n()) %>%
-  ggplot(aes(x = capacity, y = count, fill = attendance)) +
+  mutate(freq = count / sum(count) * 100) %>%
+  ggplot(aes(x = capacity, y = freq, fill = attendance)) +
   geom_bar(stat = "identity") + 
   coord_flip() +
-  theme_bw() + labs(x = "Capacity ratings", title = "Did CSPC build capacity",
+  theme_bw() + labs(x = "Capacity ratings", y = "percentage", title = "Did CSPC build capacity",
                     subtitle = "for the next generation of science policy experts") +
   scale_fill_manual(values=c("seagreen4", "blue4", "darkorange3", "cyan4", "gold1")) 
 
@@ -84,10 +92,11 @@ sheet_7 %>%
   filter(! connections == "NA") %>%
   group_by(attendance, engagement) %>%
   summarise(count = n()) %>%
-  ggplot(aes(x = engagement, y = count, fill = attendance)) +
+  mutate(freq = count / sum(count) * 100) %>%
+  ggplot(aes(x = engagement, y = freq, fill = attendance)) +
   geom_bar(stat = "identity") + 
   coord_flip() +
-  theme_bw() + labs(x = "Engagement ratings", title = "Did CSPC promote",
+  theme_bw() + labs(x = "Engagement ratings", y = "percentage", title = "Did CSPC promote",
                     subtitle = "and /or engaged in research and analysis in science policy") +
   scale_fill_manual(values=c("seagreen4", "blue4", "darkorange3", "cyan4", "gold1")) 
 
@@ -97,10 +106,11 @@ sheet_7 %>%
   filter(! connections == "NA") %>%
   group_by(attendance, welcomed) %>%
   summarise(count = n()) %>%
-  ggplot(aes(x = welcomed, y = count, fill = attendance)) +
+  mutate(freq = count / sum(count) * 100) %>%
+  ggplot(aes(x = welcomed, y = freq, fill = attendance)) +
   geom_bar(stat = "identity") + 
   coord_flip() +
-  theme_bw() + labs(x = "Welcome ratings", title = "Did CSPC make you feel welcomed?",
+  theme_bw() + labs(x = "Welcome ratings", y = "percentage", title = "Did CSPC make you feel welcomed?",
                     subtitle = "") +
   scale_fill_manual(values=c("seagreen4", "blue4", "darkorange3", "cyan4", "gold1")) 
 
@@ -123,11 +133,20 @@ sheet_7 %>%
   filter(! connections == "NA") %>%
   group_by(attendance, diversity) %>%
   summarise(count = n()) %>%
-  ggplot(aes(x = diversity, y = count, fill = attendance)) +
+  mutate(freq = count / sum(count) * 100) %>%
+  ggplot(aes(x = diversity, y = freq, fill = attendance)) +
   geom_bar(stat = "identity") + 
   coord_flip() +
-  theme_bw() + labs(x = "Diversity ratings", title = "Did CSPC include",
+  theme_bw() + labs(x = "Diversity ratings", y = "percentage", title = "Did CSPC include",
                     subtitle = "representation of diverse individual and organizational perspectives") +
   scale_fill_manual(values=c("seagreen4", "blue4", "darkorange3", "cyan4", "gold1")) 
 
+# graph 11
+sheet_7 %>%
+  group_by(attendance, diversity) %>%
+  summarise(count = n()) %>%
+  mutate(freq = count / sum(count) * 100) %>%
+  skim()
+  
 
+skim(sheet_7)
