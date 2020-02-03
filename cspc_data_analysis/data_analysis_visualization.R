@@ -133,11 +133,20 @@ sheet_7 %>%
   filter(! connections == "NA") %>%
   group_by(attendance, diversity) %>%
   summarise(count = n()) %>%
-  ggplot(aes(x = diversity, y = count, fill = attendance)) +
+  mutate(freq = count / sum(count) * 100) %>%
+  ggplot(aes(x = diversity, y = freq, fill = attendance)) +
   geom_bar(stat = "identity") + 
   coord_flip() +
-  theme_bw() + labs(x = "Diversity ratings", title = "Did CSPC include",
+  theme_bw() + labs(x = "Diversity ratings", y = "percentage", title = "Did CSPC include",
                     subtitle = "representation of diverse individual and organizational perspectives") +
   scale_fill_manual(values=c("seagreen4", "blue4", "darkorange3", "cyan4", "gold1")) 
 
+# graph 11
+sheet_7 %>%
+  group_by(attendance, diversity) %>%
+  summarise(count = n()) %>%
+  mutate(freq = count / sum(count) * 100) %>%
+  skim()
+  
 
+skim(sheet_7)
